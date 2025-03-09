@@ -5,52 +5,52 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookStoreApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class BooksController : ControllerBase
+[Route("/puntuacion")]
+public class PuntuacionController : ControllerBase
 {
     private readonly PuntuacionService _PuntuacionService;
 
-    public BooksController(PuntuacionService puntuacionService) =>
+    public PuntuacionController(PuntuacionService puntuacionService) =>
         _PuntuacionService = puntuacionService;
 
     [HttpGet]
-    public async Task<List<Book>> Get() =>
+    public async Task<List<Puntuacion>> Get() =>
         await _PuntuacionService.GetAsync();
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Book>> Get(string id)
+    public async Task<ActionResult<Puntuacion>> Get(string id)
     {
-        var book = await _PuntuacionService.GetAsync(id);
+        var puntuacion = await _PuntuacionService.GetAsync(id);
 
-        if (book is null)
+        if (puntuacion is null)
         {
             return NotFound();
         }
 
-        return book;
+        return puntuacion;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Book newBook)
+    public async Task<IActionResult> Post(Puntuacion newPuntuacion)
     {
-        await _PuntuacionService.CreateAsync(newBook);
+        await _PuntuacionService.CreateAsync(newPuntuacion);
 
-        return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
+        return CreatedAtAction(nameof(Get), new { id = newPuntuacion.Id }, newPuntuacion);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Book updatedBook)
+    public async Task<IActionResult> Update(string id, Puntuacion updatedPuntuacion)
     {
-        var book = await _PuntuacionService.GetAsync(id);
+        var puntuacion = await _PuntuacionService.GetAsync(id);
 
-        if (book is null)
+        if (puntuacion is null)
         {
             return NotFound();
         }
 
-        updatedBook.Id = book.Id;
+        updatedPuntuacion.Id = puntuacion.Id;
 
-        await _PuntuacionService.UpdateAsync(id, updatedBook);
+        await _PuntuacionService.UpdateAsync(id, updatedPuntuacion);
 
         return NoContent();
     }
