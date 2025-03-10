@@ -1,6 +1,7 @@
 using BookStoreApi.Models;
 using BookStoreApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace BookStoreApi.Controllers;
 
@@ -15,6 +16,7 @@ public class PuntuacionController : ControllerBase
 
     [HttpGet]
     public async Task<List<Puntuacion>> Get() =>
+        
         await _PuntuacionService.GetAsync();
 
     [HttpGet("{id:length(24)}")]

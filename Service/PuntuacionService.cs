@@ -21,8 +21,10 @@ public class PuntuacionService
             bookStoreDatabaseSettings.Value.CollectionName);
     }
 
-    public async Task<List<Puntuacion>> GetAsync() =>
-        await _booksCollection.Find(_ => true).ToListAsync();
+    public async Task<List<Puntuacion>> GetAsync(){
+        return await _booksCollection.Find(_ => true).SortByDescending(x => x.Time).ToListAsync();
+    }
+        
 
     public async Task<Puntuacion?> GetAsync(string id) =>
         await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
