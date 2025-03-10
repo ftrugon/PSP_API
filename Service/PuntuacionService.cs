@@ -22,7 +22,7 @@ public class PuntuacionService
     }
 
     public async Task<List<Puntuacion>> GetAsync(){
-        return await _booksCollection.Find(_ => true).SortByDescending(x => x.Time).ToListAsync();
+        return await _booksCollection.Find(_ => true).SortBy(x => x.Time).ToListAsync();
     }
         
 
